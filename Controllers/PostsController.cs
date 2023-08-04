@@ -23,9 +23,12 @@ public class PostsController : Controller
         return View(postViewModels);
     }
 
-    public IActionResult Privacy()
+    public async Task<IActionResult> Details(int id)
     {
-        return View();
+        var post = await Post.GetPostAsync(id);
+        var user = await Social.Models.User.GetUserAsync(post!.UserId);
+        var postViewModel = new PostViewModel { Post = post, User = user };
+        return View(postViewModel);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

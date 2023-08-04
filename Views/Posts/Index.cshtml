@@ -4,7 +4,7 @@
 {
     <div>
         <img src=@($"https://www.gravatar.com/avatar/{@post.User.GravatarHash}?d=identicon") />
-        <h4>@post.Post.Title</h4>
+        <a asp-action="Details" asp-route-id="@post.Post.Id"><h4>@post.Post.Title</h4></a>
         <p>@post.User.Username</p>
         <p>@post.Post.Body</p>
     </div>

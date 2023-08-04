@@ -47,16 +47,6 @@ public class User {
         ClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
     }
 
-    /*
-    public User()
-    {
-        byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(Email);
-        byte[] hashBytes = System.Security.Cryptography.MD5.HashData(inputBytes);
-
-        GravatarHash = Convert.ToHexString(hashBytes);
-    }
-    */
-    
     internal static async Task<IEnumerable<User>?> GetUsersAsync()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "users");
@@ -70,6 +60,22 @@ public class User {
             return users;
         } else {
             return Array.Empty<User>();
+        }
+    }
+
+    internal static async Task<User> GetUserAsync(int id)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"users/{id}");
+        var client = ClientFactory.CreateClient("JsonPlaceholderClient");
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode) {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var user = await JsonSerializer.DeserializeAsync<User>(responseStream);
+            return user!;
+        } else {
+            return null!;
         }
     }
 }
