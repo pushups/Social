@@ -27,7 +27,8 @@ public class PostsController : Controller
     {
         var post = await Post.GetPostAsync(id);
         var user = await Social.Models.User.GetUserAsync(post!.UserId);
-        var postViewModel = new PostViewModel { Post = post, User = user };
+        var comments = await Comment.GetCommentsAsync(id);
+        var postViewModel = new PostViewModel { Post = post, User = user, Comments = comments };
         return View(postViewModel);
     }
 

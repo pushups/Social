@@ -18,6 +18,7 @@ using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
     Post.Initialize(services);
     User.Initialize(services);
+    Comment.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

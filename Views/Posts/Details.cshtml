@@ -5,4 +5,11 @@
         <h4>@Html.DisplayFor(model => model.Post.Title)</h4>
         <p>@Html.DisplayFor(model => model.User.Username)</p>
         <p>@Html.DisplayFor(model => model.Post.Body)</p>
+        @foreach(var comment in Model.Comments)
+        {
+            <div>
+                <h4>@Html.DisplayFor(model => comment.Name)</h4>
+                <p>@Html.DisplayFor(model => comment.Body)</p>
+            </div>
+        }
 </div>
