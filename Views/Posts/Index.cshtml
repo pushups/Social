@@ -1,1 +1,11 @@
+@model IEnumerable<PostViewModel>
 <h2>Posts</h2>
+@foreach (var post in Model)
+{
+    <div>
+        <img src=@($"https://www.gravatar.com/avatar/{@post.User.GravatarHash}?d=identicon") />
+        <h4>@post.Post.Title</h4>
+        <p>@post.User.Username</p>
+        <p>@post.Post.Body</p>
+    </div>
+}

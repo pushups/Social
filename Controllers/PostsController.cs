@@ -13,9 +13,14 @@ public class PostsController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
-    {
-        return View();
+    public async Task<IActionResult> Index()
+    {   
+        var posts = await Post.GetPostsAsync();
+        var userIds = posts!.Select(p => p.UserId).Distinct();
+        var users = await Social.Models.User.GetUsersAsync();
+        var usersById = users.ToDictionary(u => u.Id);
+        var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = usersById[p.UserId] });
+        return View(postViewModels);
     }
 
     public IActionResult Privacy()

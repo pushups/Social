@@ -1,9 +1,24 @@
+using Social.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient(
+  "JsonPlaceholderClient",
+  client => {
+    client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+  }
+);
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope()) {
+    var services = scope.ServiceProvider;
+    Post.Initialize(services);
+    User.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
