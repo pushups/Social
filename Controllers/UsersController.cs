@@ -28,7 +28,7 @@ public class UsersController : Controller
     {
         var posts = await Post.GetPostsByUserAsync(id);
         var user = await Social.Models.User.GetUserAsync(id);
-        var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = user });
+        var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = user }).Reverse();
         return View(postViewModels);
     }
 

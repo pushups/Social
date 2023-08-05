@@ -13,13 +13,22 @@ public class PostsController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int page)
     {   
+        int pageSize = 5;
         var posts = await Post.GetPostsAsync();
         var userIds = posts!.Select(p => p.UserId).Distinct();
         var users = await Social.Models.User.GetUsersAsync(userIds);
         var usersById = users.ToDictionary(u => u.Id);
-        var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = usersById[p.UserId] });
+        var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = usersById[p.UserId] }).Reverse();
+
+        var postCount = postViewModels.Count();
+        postViewModels = postViewModels.Skip(page * pageSize).Take(pageSize);
+        @ViewBag.Page = page;
+        @ViewBag.PostCount = postCount;
+        @ViewBag.HasNextPage = (page + 1) * pageSize < postCount;
+        @ViewBag.HasPreviousPage = page > 0;
+        @ViewBag.PageSize = pageSize;
         return View(postViewModels);
     }
 

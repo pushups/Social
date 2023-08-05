@@ -4,3 +4,15 @@
 {
     <partial name="_Post" model="@post"/>
 }
+
+<div class="pagination-links">
+    @if(@ViewBag.HasPreviousPage) {
+        @Html.ActionLink("<< First", "Index", new { page = 0 })
+        @Html.ActionLink("< Previous", "Index", new { page = ViewBag.Page - 1 })
+    }
+
+    @if(@ViewBag.HasNextPage) {
+        @Html.ActionLink("Next >", "Index", new { page = ViewBag.Page + 1 })
+        @Html.ActionLink("Last >>", "Index", new { page = ViewBag.Page = (ViewBag.PostCount / ViewBag.PageSize) - 1 })
+    }
+</div>
