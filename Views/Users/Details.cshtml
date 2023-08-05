@@ -2,10 +2,22 @@
 
 <div>
     <img src=@($"https://www.gravatar.com/avatar/{this.Model.User.GravatarHash}?d=identicon") />
-    <h2>@Html.DisplayFor(model => model.User.Username)</h2>
+    <h2>@Html.DisplayFor(model => model.User.Username) (@Html.DisplayFor(model => model.User.Name))</h2>
 
-    <p>Works at:</p>
-    <h3>@Html.DisplayFor(model => model.User.Company.Name)</h3>
+    <h3>Contact</h3>
+    <p>Phone: @Html.DisplayFor(model => model.User.Phone)</p>
+    <a href=@($"mailto:{this.Model.User.Email}")>Email: @Html.DisplayFor(model => model.User.Email)</a>
+    <a href=@($"https://{this.Model.User.Website}")>Website: @Html.DisplayFor(model => model.User.Website)</a>
+
+    <h3>Address</h3>
+    <p>@Html.DisplayFor(model => model.User.Address.Street)</p>
+    <p>@Html.DisplayFor(model => model.User.Address.Suite)</p>
+    <p>@Html.DisplayFor(model => model.User.Address.City)</p>
+    <p>@Html.DisplayFor(model => model.User.Address.Zipcode)</p>
+
+
+    <h3>Works at</h3>
+    <h4>@Html.DisplayFor(model => model.User.Company.Name)</h4>
     <p>@Html.DisplayFor(model => model.User.Company.CatchPhrase)</p>
     <p>@Html.DisplayFor(model => model.User.Company.Bs)</p>
 </div>

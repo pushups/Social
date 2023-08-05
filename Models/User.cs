@@ -44,6 +44,15 @@ public class User {
     [JsonPropertyName("company")]
     public Company Company { get; set; } = null!;
 
+    [JsonPropertyName("address")]
+    public Address Address { get; set; } = null!;
+
+    [JsonPropertyName("phone")]
+    public string Phone { get; set; } = null!;
+
+    [JsonPropertyName("website")]
+    public string Website { get; set; } = null!;
+
     private static IHttpClientFactory ClientFactory { get; set; } = null!;
 
     public static void Initialize(IServiceProvider serviceProvider) {
@@ -97,6 +106,21 @@ public class User {
             return null!;
         }
     }
+}
+
+public class Address
+{
+    [JsonPropertyName("street")]
+    public string Street { get; set; } = null!;
+
+    [JsonPropertyName("suite")]
+    public string Suite { get; set; } = null!;
+
+    [JsonPropertyName("city")]
+    public string City { get; set; } = null!;
+
+    [JsonPropertyName("zipcode")]
+    public string Zipcode { get; set; } = null!;
 }
 
 public class Company
