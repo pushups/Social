@@ -1,10 +1,7 @@
 @model PostViewModel;
 
 <div>
-        <img src=@($"https://www.gravatar.com/avatar/{this.Model.User.GravatarHash}?d=identicon") />
-        <h4>@Html.DisplayFor(model => model.Post.Title)</h4>
-        <p>@Html.DisplayFor(model => model.User.Username)</p>
-        <p>@Html.DisplayFor(model => model.Post.Body)</p>
+        <partial name="_Post" />
         @foreach(var comment in Model.Comments)
         {
             <div>

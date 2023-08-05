@@ -1,0 +1,9 @@
+@model Social.Models.PostViewModel
+<div>
+    <img src=@($"https://www.gravatar.com/avatar/{Model.User.GravatarHash}?d=identicon") />
+    <a asp-action="Details" asp-route-id="@this.Model.Post.Id">
+        <h2>@Html.DisplayFor(model => model.Post.Title)</h2>
+    </a>
+    @Html.ActionLink((string)Model.User.Username, "Details", "Users", new { id = Model.User.Id }, null)
+    <p>@Html.DisplayFor(model => model.Post.Body)</p>
+</div>
