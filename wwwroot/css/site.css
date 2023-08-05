@@ -20,3 +20,39 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.user-info .user-avatar {
+  margin-right: 20px;
+}
+
+.user-info .user-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.post {
+  margin-bottom: 50px;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.post-comment {
+  border: 1px solid #ccc;
+  border-bottom: none;
+  padding: 20px;
+}
+
+.post-comment:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.post-comment .user-avatar {
+  margin-right: 20px;
+}

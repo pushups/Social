@@ -2,9 +2,14 @@
 
 <div>
         <partial name="_Post" />
+        <h2>Comments</h2>
         @foreach(var comment in Model.Comments)
         {
-            <div>
+            <div class="post-comment">
+                <div class="post-comment-user">
+                    <img class="user-avatar" src=@($"https://www.gravatar.com/avatar/{comment.GravatarHash}?d=identicon") />
+                    <h4>@Html.DisplayFor(model => comment.Email)</h4>
+                </div>
                 <h4>@Html.DisplayFor(model => comment.Name)</h4>
                 <p>@Html.DisplayFor(model => comment.Body)</p>
             </div>

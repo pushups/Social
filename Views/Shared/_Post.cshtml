@@ -1,0 +1,12 @@
+@model Social.Models.PostViewModel
+<div class="post">
+    <div class="user-info">
+        <img class="user-avatar" src=@($"https://www.gravatar.com/avatar/{Model.User.GravatarHash}?d=identicon") />
+        <a class="user-name" asp-controller="Users" asp-action="Details" asp-route-id="@Model.User.Id">@Html.DisplayFor(model => model.User.Username)</a>
+    </div>
+    <a asp-action="Details" asp-route-id="@this.Model.Post.Id">
+        <h2>@Html.DisplayFor(model => model.Post.Title)</h2>
+    </a>
+    
+    <p>@Html.DisplayFor(model => model.Post.Body)</p>
+</div>

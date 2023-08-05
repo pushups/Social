@@ -21,6 +21,7 @@
     <p>@Html.DisplayFor(model => model.User.Company.CatchPhrase)</p>
     <p>@Html.DisplayFor(model => model.User.Company.Bs)</p>
 
+    <a asp-controller="Users" asp-action="Posts" asp-route-id="@this.Model.User.Id"><h3>Posts</h3></a>
     <h3>Albums</h3>
     @foreach (var album in this.Model.Albums) {
         <div>

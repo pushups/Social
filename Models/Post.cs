@@ -54,4 +54,20 @@ public class Post {
             return null;
         }
     }
+
+    internal static async Task<IEnumerable<Post>?> GetPostsByUserAsync(int userId)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"users/{userId}/posts");
+        var client = ClientFactory.CreateClient("JsonPlaceholderClient");
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode) {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var posts = await JsonSerializer.DeserializeAsync<IEnumerable<Post>?>(responseStream);
+            return posts;
+        } else {
+            return null;
+        }       
+    }
 }

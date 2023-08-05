@@ -12,9 +12,33 @@ public class Comment {
 
     [JsonPropertyName("name")]
     public string Name { get; set; } = null!;
-
+    
+    private string _Email;
     [JsonPropertyName("email")]
-    public string Email { get; set; } = null!;
+    public string Email {
+        set {
+            _Email = value;
+            GravatarHash = value;
+        }
+
+        get {
+            return _Email;
+        }
+    }
+
+    private string _GravatarHash = null!;
+    public string GravatarHash {
+        set {
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(Email);
+            byte[] hashBytes = System.Security.Cryptography.MD5.HashData(inputBytes);
+
+            _GravatarHash = Convert.ToHexString(hashBytes);
+        }
+
+        get {
+            return _GravatarHash;
+        }
+    }
 
     [JsonPropertyName("body")]
     public string Body { get; set; } = null!;
