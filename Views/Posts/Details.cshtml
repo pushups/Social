@@ -8,7 +8,7 @@
             <div class="post-comment">
                 <div class="post-comment-user">
                     <img class="user-avatar" src=@($"https://www.gravatar.com/avatar/{comment.GravatarHash}?d=identicon") />
-                    <h4>@Html.DisplayFor(model => comment.Email)</h4>
+                    <span>@Html.DisplayFor(model => comment.Email)</span>
                 </div>
                 <h4>@Html.DisplayFor(model => comment.Name)</h4>
                 <p>@Html.DisplayFor(model => comment.Body)</p>

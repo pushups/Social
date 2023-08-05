@@ -37,6 +37,7 @@ public class PostsController : Controller
         var post = await Post.GetPostAsync(id);
         var user = await Social.Models.User.GetUserAsync(post!.UserId);
         var comments = await Comment.GetCommentsAsync(id);
+        comments = comments.Reverse();
         var postViewModel = new PostViewModel { Post = post, User = user, Comments = comments };
         return View(postViewModel);
     }

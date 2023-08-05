@@ -6,8 +6,8 @@
 
     <h3>Contact</h3>
     <p>Phone: @Html.DisplayFor(model => model.User.Phone)</p>
-    <a href=@($"mailto:{this.Model.User.Email}")>Email: @Html.DisplayFor(model => model.User.Email)</a>
-    <a href=@($"https://{this.Model.User.Website}")>Website: @Html.DisplayFor(model => model.User.Website)</a>
+    <p>Email: <a href=@($"mailto:{this.Model.User.Email}")>@Html.DisplayFor(model => model.User.Email)</a></p>
+    <p>Website: <a href=@($"http://{this.Model.User.Website}")>@Html.DisplayFor(model => model.User.Website)</a></p>
 
     <h3>Address</h3>
     <p>@Html.DisplayFor(model => model.User.Address.Street)</p>
