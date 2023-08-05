@@ -1,16 +1,19 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Social.Models;
+using Social.Data;
 
 namespace Social.Controllers;
 
 public class PostsController : Controller
 {
     private readonly ILogger<PostsController> _logger;
+    private readonly SocialContext _context;
 
-    public PostsController(ILogger<PostsController> logger)
+    public PostsController(ILogger<PostsController> logger, SocialContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public async Task<IActionResult> Index(int page)

@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Social.Models;
+using Social.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,9 @@ builder.Services.AddHttpClient(
     client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
   }
 );
+
+builder.Services.AddDbContext<SocialContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("SocialContext")));
 
 var app = builder.Build();
 
