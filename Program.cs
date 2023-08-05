@@ -19,6 +19,8 @@ using (var scope = app.Services.CreateScope()) {
     Post.Initialize(services);
     User.Initialize(services);
     Comment.Initialize(services);
+    Album.Initialize(services);
+    Photo.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

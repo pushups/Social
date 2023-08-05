@@ -20,4 +20,15 @@
     <h4>@Html.DisplayFor(model => model.User.Company.Name)</h4>
     <p>@Html.DisplayFor(model => model.User.Company.CatchPhrase)</p>
     <p>@Html.DisplayFor(model => model.User.Company.Bs)</p>
+
+    <h3>Albums</h3>
+    @foreach (var album in this.Model.Albums) {
+        <div>
+            <h4>@Html.DisplayFor(model => album.Title)</h4>
+            @foreach (var photo in album.Photos.Take(5)) {
+                <img src="@photo.ThumbnailUrl" />
+            }
+        </div>
+    }
+
 </div>
