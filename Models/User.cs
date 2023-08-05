@@ -41,6 +41,9 @@ public class User {
         }
     }
 
+    [JsonPropertyName("company")]
+    public Company Company { get; set; } = null!;
+
     private static IHttpClientFactory ClientFactory { get; set; } = null!;
 
     public static void Initialize(IServiceProvider serviceProvider) {
@@ -50,6 +53,22 @@ public class User {
     internal static async Task<IEnumerable<User>?> GetUsersAsync()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "users");
+        var client = ClientFactory.CreateClient("JsonPlaceholderClient");
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode) {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var users = await JsonSerializer.DeserializeAsync<IEnumerable<User>>(responseStream);
+            return users;
+        } else {
+            return Array.Empty<User>();
+        }
+    }
+
+    internal static async Task<IEnumerable<User>?> GetUsersAsync(IEnumerable<int> userIds)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"users?{string.Join("&", userIds.Select(id => $"id={id}"))}");
         var client = ClientFactory.CreateClient("JsonPlaceholderClient");
 
         var response = await client.SendAsync(request);
@@ -78,4 +97,16 @@ public class User {
             return null!;
         }
     }
+}
+
+public class Company
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = null!;
+
+    [JsonPropertyName("catchPhrase")]
+    public string CatchPhrase { get; set; } = null!;
+
+    [JsonPropertyName("bs")]
+    public string Bs { get; set; } = null!;
 }

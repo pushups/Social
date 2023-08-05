@@ -1,0 +1,11 @@
+@model UserViewModel
+
+<div>
+    <img src=@($"https://www.gravatar.com/avatar/{this.Model.User.GravatarHash}?d=identicon") />
+    <h2>@Html.DisplayFor(model => model.User.Username)</h2>
+
+    <p>Works at:</p>
+    <h3>@Html.DisplayFor(model => model.User.Company.Name)</h3>
+    <p>@Html.DisplayFor(model => model.User.Company.CatchPhrase)</p>
+    <p>@Html.DisplayFor(model => model.User.Company.Bs)</p>
+</div>

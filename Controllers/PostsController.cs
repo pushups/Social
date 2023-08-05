@@ -17,7 +17,9 @@ public class PostsController : Controller
     {   
         var posts = await Post.GetPostsAsync();
         var userIds = posts!.Select(p => p.UserId).Distinct();
-        var users = await Social.Models.User.GetUsersAsync();
+
+        // TODO: https://jsonplaceholder.typicode.com/users?&id=1&id=5
+        var users = await Social.Models.User.GetUsersAsync(userIds);
         var usersById = users.ToDictionary(u => u.Id);
         var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = usersById[p.UserId] });
         return View(postViewModels);

@@ -4,23 +4,20 @@ using Social.Models;
 
 namespace Social.Controllers;
 
-public class HomeController : Controller
+public class UsersController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<UsersController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public UsersController(ILogger<UsersController> logger)
     {
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Details(int id)
     {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
+        var user = await Social.Models.User.GetUserAsync(id);
+        var userViewModel = new UserViewModel { User = user };
+        return View(userViewModel);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
