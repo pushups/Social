@@ -1,0 +1,8 @@
+@model Album
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)</h4>
+    @foreach (var photo in this.Model.Photos) {
+        <img src="@photo.ThumbnailUrl" />
+    }
+</div>
