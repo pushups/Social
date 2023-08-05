@@ -14,12 +14,14 @@ public class User {
     [JsonPropertyName("username")]
     public string Username { get; set; } = null!;
 
-    private string _Email;
+    private string? _Email;
     [JsonPropertyName("email")]
-    public string Email {
+    public string? Email {
         set {
             _Email = value;
-            GravatarHash = value;
+            if (value is not null) {
+                GravatarHash = value;
+            }
         }
 
         get {
@@ -27,9 +29,13 @@ public class User {
         }
     }
 
-    private string _GravatarHash = null!;
+    private string? _GravatarHash;
     public string GravatarHash {
         set {
+            if(Email is null) {
+                _GravatarHash = null;
+                return;
+            }
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(Email);
             byte[] hashBytes = System.Security.Cryptography.MD5.HashData(inputBytes);
 

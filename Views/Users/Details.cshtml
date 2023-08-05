@@ -26,8 +26,14 @@
     @foreach (var album in this.Model.Albums) {
         <div>
             <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id"><h4>@Html.DisplayFor(model => album.Title)</h4></a>
-            @foreach (var photo in album.Photos.Take(5)) {
-                <img src="@photo.ThumbnailUrl" />
+            @if(album.Photos is null) {
+                <p>No photos</p>
+            } else {
+                @foreach (var photo in album.Photos.Take(5)) {
+                    <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                        <img src="@photo.ThumbnailUrl" />
+                    </a>
+                }
             }
         </div>
     }

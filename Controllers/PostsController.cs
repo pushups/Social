@@ -17,8 +17,18 @@ public class PostsController : Controller
     {   
         int pageSize = 5;
         var posts = await Post.GetPostsAsync();
-        var userIds = posts!.Select(p => p.UserId).Distinct();
+
+        if (posts is null) {
+            return NotFound();
+        }
+
+        var userIds = posts.Select(p => p.UserId).Distinct();
         var users = await Social.Models.User.GetUsersAsync(userIds);
+
+        if (users is null) {
+            return NotFound();
+        }
+
         var usersById = users.ToDictionary(u => u.Id);
         var postViewModels = posts.Select(p => new PostViewModel { Post = p, User = usersById[p.UserId] }).Reverse();
 
@@ -35,8 +45,21 @@ public class PostsController : Controller
     public async Task<IActionResult> Details(int id)
     {
         var post = await Post.GetPostAsync(id);
-        var user = await Social.Models.User.GetUserAsync(post!.UserId);
+        if (post is null) {
+            return NotFound();
+        }
+
+        var user = await Social.Models.User.GetUserAsync(post.UserId);
+
+        if (user is null) {
+            return NotFound();
+        }
+
         var comments = await Comment.GetCommentsAsync(id);
+
+        if (comments is null) {
+            return NotFound();
+        }
         comments = comments.Reverse();
         var postViewModel = new PostViewModel { Post = post, User = user, Comments = comments };
         return View(postViewModel);

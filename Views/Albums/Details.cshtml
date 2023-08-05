@@ -2,7 +2,12 @@
 
 <div>
     <h4>@Html.DisplayFor(model => model.Title)</h4>
-    @foreach (var photo in this.Model.Photos) {
-        <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id"><img src="@photo.ThumbnailUrl" /></a>
+    @if(this.Model.Photos is null) {
+        <p>No photos</p>
+    }
+    else {
+        @foreach (var photo in this.Model.Photos) {
+            <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id"><img src="@photo.ThumbnailUrl" /></a>
+        }
     }
 </div>

@@ -42,7 +42,7 @@ public class Photo {
         }
     }
 
-    internal static async Task<Photo> GetPhotoAsync(int id)
+    internal static async Task<Photo?> GetPhotoAsync(int id)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, $"photos/{id}");
         var client = ClientFactory.CreateClient("JsonPlaceholderClient");
