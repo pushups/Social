@@ -22,20 +22,23 @@
     <p>@Html.DisplayFor(model => model.User.Company.Bs)</p>
 
     <a asp-controller="Users" asp-action="Posts" asp-route-id="@this.Model.User.Id"><h3>Posts</h3></a>
-    <h3>Albums</h3>
-    @foreach (var album in this.Model.Albums) {
-        <div>
-            <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id"><h4>@Html.DisplayFor(model => album.Title)</h4></a>
-            @if(album.Photos is null) {
-                <p>No photos</p>
-            } else {
-                @foreach (var photo in album.Photos.Take(5)) {
-                    <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
-                        <img src="@photo.ThumbnailUrl" />
-                    </a>
+
+    @if ((this.Model.Albums is not null) && this.Model.Albums.Any()) {
+        <h3>Albums</h3>
+        @foreach (var album in this.Model.Albums) {
+            <div>
+                <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.Id"><h4>@Html.DisplayFor(model => album.Title)</h4></a>
+                @if(album.Photos is null) {
+                    <p>No photos</p>
+                } else {
+                    @foreach (var photo in album.Photos.Take(5)) {
+                        <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                            <img src="@photo.ThumbnailUrl" />
+                        </a>
+                    }
                 }
-            }
-        </div>
+            </div>
+        }
     }
 
 </div>

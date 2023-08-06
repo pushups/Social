@@ -16,12 +16,17 @@ public class UsersController : Controller
     public async Task<IActionResult> Details(int id)
     {
         var user = await Social.Models.User.GetUserAsync(id);
-        var albums = await Album.GetAlbumsAsync(id);
-        if (user is null || albums is null) {
+        
+        if (user is null) {
             return NotFound();
         }
-        foreach (var album in albums) {
-            album.Photos = await Photo.GetPhotosAsync(album.Id);
+        
+        var albums = await Album.GetAlbumsAsync(id);
+
+        if (albums is not null) {
+            foreach (var album in albums) {
+                album.Photos = await Photo.GetPhotosAsync(album.Id);
+            }
         }
         var userViewModel = new UserViewModel { User = user, Albums = albums };
         return View(userViewModel);

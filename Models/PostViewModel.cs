@@ -2,7 +2,7 @@ namespace Social.Models;
 
 public class PostViewModel
 {
-    public Post? Post;
-    public User? User;
+    public required Post Post;
+    public required User User;
     public IEnumerable<Comment>? Comments;
 }

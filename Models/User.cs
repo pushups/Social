@@ -30,7 +30,7 @@ public class User {
     }
 
     private string? _GravatarHash;
-    public string GravatarHash {
+    public string? GravatarHash {
         set {
             if(Email is null) {
                 _GravatarHash = null;

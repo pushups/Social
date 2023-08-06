@@ -2,16 +2,19 @@
 
 <div>
         <partial name="_Post" />
-        <h2>Comments</h2>
-        @foreach(var comment in Model.Comments)
+        @if (Model.Comments is not null && Model.Comments.Any())
         {
-            <div class="post-comment">
-                <div class="post-comment-user">
-                    <img class="user-avatar" src=@($"https://www.gravatar.com/avatar/{comment.GravatarHash}?d=identicon") />
-                    <span>@Html.DisplayFor(model => comment.Email)</span>
+            <h2>Comments</h2>
+            @foreach(var comment in Model.Comments)
+            {
+                <div class="post-comment">
+                    <div class="post-comment-user">
+                        <img class="user-avatar" src=@($"https://www.gravatar.com/avatar/{comment.GravatarHash}?d=identicon") />
+                        <span>@Html.DisplayFor(model => comment.Email)</span>
+                    </div>
+                    <h4>@Html.DisplayFor(model => comment.Name)</h4>
+                    <p>@Html.DisplayFor(model => comment.Body)</p>
                 </div>
-                <h4>@Html.DisplayFor(model => comment.Name)</h4>
-                <p>@Html.DisplayFor(model => comment.Body)</p>
-            </div>
+            }
         }
 </div>
