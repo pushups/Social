@@ -14,7 +14,7 @@ by clicking on the post title text.
 1. Clone this repository by running the following command in your shell: ```$ git clone git@github.com:pushups/Social.git```.
 1. In your shell change to the project directory: ```$ cd Social```
 1. Build and run the project: ```$ dotnet run```
-1. Your default web browser should open to a port on localhost, and the application should start.
+1. In the console you should see a message that says: ```Now listening on http://localhost:<port>```. Navigate to that URL in a web browser.
 
 ## Potential Improvements
 
