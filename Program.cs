@@ -1,3 +1,4 @@
+using Social.Libraries;
 using Social.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,11 +17,7 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
-    Post.Initialize(services);
-    User.Initialize(services);
-    Comment.Initialize(services);
-    Album.Initialize(services);
-    Photo.Initialize(services);
+    JsonPlaceholderClient.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

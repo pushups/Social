@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Social.Libraries;
 
 namespace Social.Models;
 
@@ -19,42 +20,13 @@ public class Photo {
     [JsonPropertyName("thumbnailUrl")]
     public string ThumbnailUrl { get; set; } = null!;
 
-
-    private static IHttpClientFactory ClientFactory { get; set; } = null!;
-
-    public static void Initialize(IServiceProvider serviceProvider) {
-        ClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
-    }
-
     internal static async Task<IEnumerable<Photo>?> GetPhotosAsync(int albumId)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"albums/{albumId}/photos");
-        var client = ClientFactory.CreateClient("JsonPlaceholderClient");
-
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode) {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            var photos = await JsonSerializer.DeserializeAsync<IEnumerable<Photo>?>(responseStream);
-            return photos;
-        } else {
-            return null!;
-        }
+        return await JsonPlaceholderClient.Get<IEnumerable<Photo>?>($"albums/{albumId}/photos");
     }
 
     internal static async Task<Photo?> GetPhotoAsync(int id)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"photos/{id}");
-        var client = ClientFactory.CreateClient("JsonPlaceholderClient");
-
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode) {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            var photo = await JsonSerializer.DeserializeAsync<Photo?>(responseStream);
-            return photo;
-        } else {
-            return null!;
-        }
+        return await JsonPlaceholderClient.Get<Photo?>($"photos/{id}");
     }
 }
