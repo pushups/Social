@@ -6,13 +6,7 @@ namespace Social.Controllers;
 
 public class AlbumsController : Controller
 {
-    private readonly ILogger<AlbumsController> _logger;
-
-    public AlbumsController(ILogger<AlbumsController> logger)
-    {
-        _logger = logger;
-    }
-
+   
     public async Task<IActionResult> Details(int id)
     {
         var album = await Album.GetAlbumAsync(id);

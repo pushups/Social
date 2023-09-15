@@ -70,7 +70,7 @@ public class User {
         return await JsonPlaceholderClient.Get<IEnumerable<User>?>($"users?{string.Join("&", userIds.Select(id => $"id={id}"))}");
     }
 
-    internal static async Task<User> GetUserAsync(int id)
+    internal static async Task<User?> GetUserAsync(int id)
     {
         return await JsonPlaceholderClient.Get<User>($"users/{id}");
     }

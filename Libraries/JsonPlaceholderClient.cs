@@ -10,7 +10,7 @@ public class JsonPlaceholderClient {
         ClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
     }
 
-    public static async Task<T> Get<T>(string path)
+    public static async Task<T?> Get<T>(string path)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, path);
         var client = ClientFactory.CreateClient("JsonPlaceholderClient");
